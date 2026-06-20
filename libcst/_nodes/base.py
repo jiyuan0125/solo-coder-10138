@@ -370,6 +370,13 @@ class CSTNode(ABC):
 
         return deep_equals_impl(self, other)
 
+    def structural_fingerprint(self) -> "StructuralFingerprint":
+        from libcst._nodes.structural_fingerprint import (
+            structural_fingerprint as structural_fingerprint_impl,
+        )
+
+        return structural_fingerprint_impl(self)
+
     def deep_replace(
         self: _CSTNodeSelfT, old_node: "CSTNode", new_node: CSTNodeT
     ) -> Union[_CSTNodeSelfT, CSTNodeT]:

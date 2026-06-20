@@ -9,6 +9,7 @@ from libcst._flatten_sentinel import FlattenSentinel
 from libcst._maybe_sentinel import MaybeSentinel
 from libcst._metadata_dependent import MetadataDependent
 from libcst._nodes.base import CSTNode, CSTValidationError
+from libcst._nodes.structural_fingerprint import StructuralFingerprint
 from libcst._nodes.expression import (
     Annotation,
     Arg,
@@ -447,6 +448,7 @@ __all__ = [
     "Newline",
     "ParenthesizedWhitespace",
     "SimpleWhitespace",
+    "StructuralFingerprint",
     "TrailingWhitespace",
     "BaseMetadataProvider",
     "BatchableMetadataProvider",
