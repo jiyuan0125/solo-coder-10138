@@ -218,6 +218,10 @@ print(m.fingerprint())
         m = cst.parse_module("x = 1")
         self.assertEqual(cst.fingerprint(m), m.fingerprint())
 
+    def test_function_and_method_same_object(self) -> None:
+        self.assertIs(cst.fingerprint, cst.CSTNode.fingerprint)
+        self.assertEqual(id(cst.fingerprint), id(cst.CSTNode.fingerprint))
+
     def test_optional_field_none(self) -> None:
         el1 = cst.EmptyLine(comment=None)
         el2 = cst.EmptyLine(comment=None)

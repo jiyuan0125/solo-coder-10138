@@ -228,3 +228,6 @@ def fingerprint(value: object) -> int:
     raise TypeError(
         f"Cannot fingerprint object of type {type(value).__name__!r}"
     )
+
+
+CSTNode.fingerprint = fingerprint

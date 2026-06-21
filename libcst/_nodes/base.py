@@ -370,26 +370,6 @@ class CSTNode(ABC):
 
         return deep_equals_impl(self, other)
 
-    def fingerprint(self) -> int:
-        """
-        Compute a cross-process deterministic structural fingerprint of this node.
-
-        Two nodes for which :meth:`deep_equals` returns ``True`` will have the
-        same fingerprint. Collisions are possible (as with any hash function)
-        but unlikely for normal inputs.
-
-        The fingerprint does not depend on Python's :func:`hash`, object identity,
-        or ``PYTHONHASHSEED``. It is safe to use across processes.
-
-        Only fields marked with ``compare=True`` (the default for dataclass fields)
-        participate in the fingerprint calculation. Internal state and metadata
-        fields with ``compare=False`` are excluded, matching :meth:`deep_equals`
-        semantics.
-        """
-        from libcst._nodes.fingerprint import fingerprint as fingerprint_impl
-
-        return fingerprint_impl(self)
-
     def deep_replace(
         self: _CSTNodeSelfT, old_node: "CSTNode", new_node: CSTNodeT
     ) -> Union[_CSTNodeSelfT, CSTNodeT]:
