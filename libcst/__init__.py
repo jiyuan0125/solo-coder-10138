@@ -9,6 +9,7 @@ from libcst._flatten_sentinel import FlattenSentinel
 from libcst._maybe_sentinel import MaybeSentinel
 from libcst._metadata_dependent import MetadataDependent
 from libcst._nodes.base import CSTNode, CSTValidationError
+from libcst._nodes.fingerprint import fingerprint
 from libcst._nodes.expression import (
     Annotation,
     Arg,
@@ -258,6 +259,7 @@ __all__ = [
     "parse_expression",
     "parse_statement",
     "CSTNode",
+    "fingerprint",
     "Module",
     "Annotation",
     "Arg",
