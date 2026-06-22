@@ -9,6 +9,7 @@ from libcst._flatten_sentinel import FlattenSentinel
 from libcst._maybe_sentinel import MaybeSentinel
 from libcst._metadata_dependent import MetadataDependent
 from libcst._nodes.base import CSTNode, CSTValidationError
+from libcst._nodes.structural_fingerprint import structural_fingerprint
 from libcst._nodes.expression import (
     Annotation,
     Arg,
@@ -253,6 +254,7 @@ __all__ = [
     "RemoveFromParent",
     "RemovalSentinel",
     "ensure_type",  # from libcst import ensure_type is deprecated, will be removed in 0.4.0
+    "structural_fingerprint",
     "visit_batched",
     "parse_module",
     "parse_expression",

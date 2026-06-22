@@ -370,6 +370,44 @@ class CSTNode(ABC):
 
         return deep_equals_impl(self, other)
 
+    def structural_fingerprint(self) -> int:
+        """
+        Computes a deterministic, cross-process-stable structural fingerprint
+        of the entire tree under ``self``.
+
+        The returned ``int`` is in the range ``0 .. 2**64 - 1`` and is stable
+        across:
+
+            * Different Python interpreter invocations (different
+              ``PYTHONHASHSEED``)
+            * Different object identities representing equivalent structure
+            * Serialization round trips (e.g. pickle)
+            * Visitor passes that do not modify the tree structure
+
+        Semantics align exactly with :meth:`deep_equals`:
+
+            * If ``a.deep_equals(b)`` returns ``True`` then
+              ``a.structural_fingerprint() == b.structural_fingerprint()`` is
+              guaranteed.  The reverse is not guaranteed (collisions are
+              possible but rare).
+            * Dataclass fields with ``compare=False`` are excluded from the
+              fingerprint so that internal caches / metadata do not affect
+              the result.
+            * Sequence fields (including empty sequences), ``Optional``
+              fields that are ``None``, ``MaybeSentinel`` values, and nested
+              sub-nodes are all handled according to the same rules used by
+              :meth:`deep_equals`.
+
+        Unlike :meth:`__hash__`, the fingerprint does not depend on object
+        identity. Two distinct node instances that are structurally
+        equivalent will produce the same fingerprint.
+        """
+        from libcst._nodes.structural_fingerprint import (
+            structural_fingerprint as _structural_fingerprint_impl,
+        )
+
+        return _structural_fingerprint_impl(self)
+
     def deep_replace(
         self: _CSTNodeSelfT, old_node: "CSTNode", new_node: CSTNodeT
     ) -> Union[_CSTNodeSelfT, CSTNodeT]:
